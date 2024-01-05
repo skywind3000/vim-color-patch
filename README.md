@@ -4,7 +4,7 @@ This plugin will load corresponding patch script located in the given directory 
 
 ## Get started
 
-Install this plugin with your plugin manager:
+Install this plugin with your plugin manager (without lazy loading):
 
 ```VimL
 Plug 'skywind3000/vim-color-patch'
@@ -16,11 +16,14 @@ Setup the patch search path:
 let g:cpatch_path = '~/.vim/cpatch'
 ```
 
+And script with the same name will be loaded in this locations after `:color xxx` command.
+
+
 ## Examples
 
 ##### Change line number color for the desert colorscheme
 
-create a `desert.vim` in the `~/.vim/cpatch` folder:
+create a new file named `desert.vim` in the `~/.vim/cpatch` folder:
 
 ```viml
 highlight! LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE 
@@ -43,7 +46,7 @@ if has('win32') || has('win64')
 endif
 ```
 
-The `__init__.vim` is a public script and it will be loaded for every colorscheme.
+The `__init__.vim` is a public script and it will be sourced for every colorscheme.
 
 `vim-color-patch` provides some help functions like `disable_italic()` for style tuning.
 
