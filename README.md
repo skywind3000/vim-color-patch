@@ -24,7 +24,7 @@ result:
 
 ![](https://skywind3000.github.io/images/p/cpatch/c1-after.jpg)
 
-I am interested in trying out this emacs colorscheme that has been backported to Vim. However, it has some flaws. This plugin helps me fix it permanently without modifying the original colors.
+I am interested in trying out this Emacs colorscheme that has been backported to Vim. However, it has some flaws. This plugin helps me fix it permanently without modifying the original colors.
 
 
 ## Get started
