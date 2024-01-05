@@ -6,6 +6,8 @@
 " Created by skywind on 2024/01/05
 " Last Modified: 2024/01/05 14:48:57
 "
+" Homepage: https://github.com/skywind3000/vim-color-patch
+"
 " USAGE:
 " 
 " This script will load colorscheme patch when current color changed
@@ -32,7 +34,7 @@
 "----------------------------------------------------------------------
 
 " color patch path: script will be searched here
-let g:cpatch_path = get(g:, 'cpatch_path', '')
+let g:cpatch_path = get(g:, 'cpatch_path', '~/.vim/cpatch')
 
 " color patch subdirectory in every runtime path
 let g:cpatch_name = get(g:, 'cpatch_name', '')
