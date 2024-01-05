@@ -89,10 +89,10 @@ This is where you keep your color patches, when you type:
 
 This plugin will try to find scripts located in the folder specified by `g:cpatch_path` and source them in the following order:
 
-1\) `__init__.vim`
-2\) `__init__.lua`
-3\) `{NAME}.vim`
-4\) `{NAME}.lua`
+1) `__init__.vim`
+2) `__init__.lua`
+3) `{NAME}.vim`
+4) `{NAME}.lua`
 
 Default value: `~/.vim/cpatch`.
 
