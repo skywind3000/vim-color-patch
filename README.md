@@ -36,6 +36,8 @@ and this script will be loaded after executing:
 :color desert
 ```
 
+And `LineNr` in `desert` will be overrided.
+
 #### Remove all italic for Windows
 
 edit `~/.vim/cpatch/__init__.vim` :
@@ -65,6 +67,8 @@ edit `~/.vim/cpatch/gruvbox.vim`:
 ```VimL
 hi! VertSplit term=reverse ctermfg=239 ctermbg=233 guifg=#64645e guibg=#211F1C
 ```
+
+And `VertSplit` style in `gruvbox` will be overrided.
 
 
 ## Help functions
