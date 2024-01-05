@@ -8,6 +8,24 @@ I usually like to make some modifications for the colorschemes I love to match m
 
 Therefore, I created this plugin to centralize all colorscheme patches in one place, typically in my dotfiles repository, and have them load automatically when I type `:color xxx` .
 
+## Demo
+
+Random colorscheme `white-sand` before patch:
+
+![](https://skywind3000.github.io/images/p/cpatch/c1-before.jpg)
+
+Apply patch `white-sand.vim`:
+
+```VimL
+hi! SpecialKey term=bold ctermfg=238 guifg=#cac3bc
+```
+
+result:
+
+![](https://skywind3000.github.io/images/p/cpatch/c1-after.jpg)
+
+I am interested in trying out this emacs colorscheme that has been backported to Vim. However, it has some flaws. This plugin helps me fix it permanently without modifying the original colors.
+
 
 ## Get started
 
