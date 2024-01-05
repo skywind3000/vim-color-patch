@@ -77,6 +77,31 @@ hi! VertSplit term=reverse ctermfg=239 ctermbg=233 guifg=#64645e guibg=#211F1C
 
 And `VertSplit` style in `gruvbox` will be overrided.
 
+## Configuration
+
+#### g:cpatch_path
+
+This is where you keep your color patches, when you type:
+
+```VimL
+:color {NAME}
+```
+
+This plugin will try to find scripts located in the folder defined by `g:cpatch_path` and source them in the following order:
+
+1\) `__init__.vim`
+2\) `__init__.lua`
+3\) `{NAME}.vim`
+4\) `{NAME}.lua`
+
+Default value: `~/.vim/cpatch`.
+
+#### g:cpatch_disable_lua
+
+Disable loading lua files in the patch directory.
+
+Default value: `0` .
+
 
 ## Help functions
 

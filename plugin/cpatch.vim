@@ -21,7 +21,9 @@
 " This script will try to load the following scripts in order:
 "
 "   1) "~/.vim/cpatch/__init__.vim"
-"   2) "~/.vim/cpatch/{NAME}.vim"
+"   2) "~/.vim/cpatch/__init__.lua"
+"   3) "~/.vim/cpatch/{NAME}.vim"
+"   4) "~/.vim/cpatch/{NAME}.lua"
 "
 " The first script "__init__.vim" in the "g:cpatch_path" folder will 
 " be loaded for every colorscheme
@@ -42,12 +44,35 @@ let g:cpatch_name = get(g:, 'cpatch_name', '')
 " runtime bang
 let g:cpatch_bang = get(g:, 'cpatch_bang', 0)
 
+" don't load .lua files
+let g:cpatch_disable_lua = get(g:, 'cpatch_disable_lua', 0)
+
+
+"----------------------------------------------------------------------
+" display error
+"----------------------------------------------------------------------
+function! s:traceback() abort
+	let msg = v:throwpoint
+	let p1 = stridx(msg, '_load_patch[')
+	if p1 > 0
+		let p2 = stridx(msg, ']..', p1)
+		if p2 > 0
+			let msg = strpart(msg, p2 + 3)
+		endif
+	endif
+	redraw
+	echohl ErrorMsg
+	echom 'Error detected in ' . msg
+	echom v:exception
+	echohl None
+endfunc
+
 
 "----------------------------------------------------------------------
 " load script
 "----------------------------------------------------------------------
 function! s:load_patch(name, force)
-	let names = ['__init__.vim', a:name .. '.vim']
+	let names = ['__init__', a:name]
 	let paths = []
 	let s:previous_color = get(s:, 'previous_color', '')
 	if a:force == 0
@@ -62,25 +87,13 @@ function! s:load_patch(name, force)
 		let paths = g:cpatch_path
 	endif
 	for name in names
-		let rtpname = g:cpatch_name .. '/' .. name
+		let rtpname = g:cpatch_name .. '/' .. name .. '.vim'
 		if g:cpatch_name != ''
 			let bang = (g:cpatch_bang == 0)? '' : '!'
 			try
 				exec printf('runtime%s %s', bang, fnameescape(rtpname))
 			catch
-				let msg = v:throwpoint
-				let p1 = stridx(msg, '_load_patch[')
-				if p1 > 0
-					let p2 = stridx(msg, ']..', p1)
-					if p2 > 0
-						let msg = strpart(msg, p2 + 3)
-					endif
-				endif
-				redraw
-				echohl ErrorMsg
-				echom 'Error detected in ' . msg
-				echom v:exception
-				echohl None
+				call s:traceback()
 			endtry
 		endif
 		for p in paths
@@ -93,26 +106,24 @@ function! s:load_patch(name, force)
 					let p = p .. '/'
 				endif
 				let p = tr(p, '\', '/')
-				let t = p .. name
-				if filereadable(t)
-					try
-						exec 'source ' .. fnameescape(t)
-					catch
-						let msg = v:throwpoint
-						let p1 = stridx(msg, '_load_patch[')
-						if p1 > 0
-							let p2 = stridx(msg, ']..', p1)
-							if p2 > 0
-								let msg = strpart(msg, p2 + 3)
-							endif
+				for extname in ['.vim', '.lua']
+					let t = p .. name .. extname
+					if extname == '.vim'
+						let cmd = 'source ' .. fnameescape(t)
+					else
+						let cmd = 'luafile ' .. fnameescape(t)
+						if g:cpatch_disable_lua
+							continue
 						endif
-						redraw
-						echohl ErrorMsg
-						echom 'Error detected in ' . msg
-						echom v:exception
-						echohl None
-					endtry
-				endif
+					endif
+					if filereadable(t)
+						try
+							exec cmd
+						catch
+							call s:traceback()
+						endtry
+					endif
+				endfor
 			endif
 		endfor
 	endfor
