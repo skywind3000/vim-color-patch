@@ -1,6 +1,6 @@
 # Preface
 
-I generally enjoy customizing the colorschemes I like to match my personal preference. In the past, I had three options:
+I usually like to make some modifications for the colorschemes I like to match my personal preference. In the past, I had three options:
 
 - Creating a PR for that colorscheme: It's my own preference, and I don't think it's likely to be accepted.
 - Maintaining my own fork: I need to track the upstream updates myself.
@@ -87,7 +87,7 @@ This is where you keep your color patches, when you type:
 :color {NAME}
 ```
 
-This plugin will try to find scripts located in the folder specified by `g:cpatch_path` and source them in the following order:
+This plugin will try to find scripts located in the directory  specified by `g:cpatch_path` and source them in the following order:
 
 1) `__init__.vim`
 2) `__init__.lua`
