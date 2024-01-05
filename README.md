@@ -94,7 +94,7 @@ This plugin will try to find scripts located in the folder specified by `g:cpatc
 3) `{NAME}.vim`
 4) `{NAME}.lua`
 
-Default value: `~/.vim/cpatch`.
+Default value: `"~/.vim/cpatch"`.
 
 #### g:cpatch_disable_lua
 
