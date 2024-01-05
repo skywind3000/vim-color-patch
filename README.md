@@ -21,7 +21,7 @@ And script with the same name will be loaded in this locations after `:color xxx
 
 ## Examples
 
-##### Change line number color for the desert colorscheme
+#### Change line number color for the desert colorscheme
 
 create a new file named `desert.vim` in the `~/.vim/cpatch` folder:
 
@@ -36,7 +36,7 @@ and this script will be loaded after executing:
 :color desert
 ```
 
-##### Remove all italic for Windows
+#### Remove all italic for Windows
 
 edit `~/.vim/cpatch/__init__.vim` :
 
@@ -50,7 +50,7 @@ The `__init__.vim` is a public script and it will be sourced for every colorsche
 
 `vim-color-patch` provides some help functions like `disable_italic()` for style tuning.
 
-##### Remove background colors for listchars for monokai
+#### Remove background colors for listchars for monokai
 
 edit `~/.vim/cpatch/monokai.vim`:
 
@@ -58,7 +58,7 @@ edit `~/.vim/cpatch/monokai.vim`:
 call cpatch#remove_background('SpecialKey')
 ```
 
-##### Change VertSplit style for gruvbox
+#### Change VertSplit style for gruvbox
 
 edit `~/.vim/cpatch/gruvbox.vim`:
 
@@ -71,7 +71,7 @@ hi! VertSplit term=reverse ctermfg=239 ctermbg=233 guifg=#64645e guibg=#211F1C
 
 This plugin provides some help functions for highlight manipulation:
 
-##### Remove style in all highlight groups:
+#### Remove style in all highlight groups:
 
 ```VimL
 function cpatch#remove_style(what)
@@ -81,7 +81,7 @@ argument `what` can be one of:
 
     ['underline', 'undercurl', 'reverse', 'inverse', 'italic', 'bold', 'standout']
   
-##### Disable italics:
+#### Disable italics:
 
 ```VimL
 function cpatch#disable_italic()
@@ -89,7 +89,7 @@ function cpatch#disable_italic()
 
 same as `call cpatch#remove_style("italic")` .
 
-##### Disable bolds:
+#### Disable bolds:
  
 ```VimL
 function cpatch#disable_bold()
@@ -97,7 +97,7 @@ function cpatch#disable_bold()
 
 same as `call cpatch#remove_style("bold")` .
 
-##### Remove background for a highlight group:
+#### Remove background for a highlight group:
 
 ```VimL
 function cpatch#remove_background(group)
