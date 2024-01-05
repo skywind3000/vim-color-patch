@@ -133,7 +133,7 @@ function cpatch#disable_bold()
 
 same as `call cpatch#remove_style("bold")` .
 
-#### Remove background for a highlight group:
+#### Remove background for a highlighting group:
 
 ```VimL
 function cpatch#remove_background(group)
