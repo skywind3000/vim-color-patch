@@ -4,7 +4,7 @@
 " cpatch.vim - load colorscheme patch automatically
 "
 " Created by skywind on 2024/01/05
-" Last Modified: 2024/01/05 14:48:57
+" Last Modified: 2024/01/07 20:33
 "
 " Homepage: https://github.com/skywind3000/vim-color-patch
 "
@@ -43,6 +43,12 @@ let g:cpatch_name = get(g:, 'cpatch_name', '')
 
 " runtime bang
 let g:cpatch_bang = get(g:, 'cpatch_bang', 0)
+
+" color patch edit path: for CPatchEdit
+let g:cpatch_edit = get(g:, 'cpatch_edit', '~/.vim/cpatch')
+
+" split mode
+let g:cpatch_split = get(g:, 'cpatch_split', 'auto')
 
 " don't load .lua files
 let g:cpatch_disable_lua = get(g:, 'cpatch_disable_lua', 0)
@@ -146,6 +152,132 @@ augroup CPatchEventGroup
 	au VimEnter * call s:load_patch(g:colors_name, 0)
 	au ColorScheme * call s:load_patch(expand('<amatch>'), 1)
 augroup END
+
+
+
+"----------------------------------------------------------------------
+" edit patch
+"----------------------------------------------------------------------
+function! s:CPatchEdit(mods, name) abort
+	let name = a:name
+	if name == ''
+		let name = get(g:, 'colors_name', '')
+	endif
+	if name == ''
+		let name = '__init__'
+	endif
+	let home = fnamemodify(g:cpatch_edit, ':p')
+	if !isdirectory(home)
+		try
+			call mkdir(home, 'p')
+		catch
+			echohl ErrorMsg
+			echo v:exception
+			echohl None
+			return 3
+		endtry
+	endif
+	let home = (home =~ '\v[\/\\]$')? home : (home .. '/')
+	let home = tr(home, '\', '/')
+	let path = printf("%s%s", home, name)
+	if name !~ '\v\.vim$' && name !~ '\v\.lua$'
+		let path = path .. '.vim'
+	endif
+	let name = fnameescape(path)
+	let mods = g:cpatch_split
+	let newfile = (filereadable(path) == 0)? 1 : 0
+	if a:mods != ''
+		if a:mods != 'auto'
+			exec a:mods . ' split ' . name
+		elseif winwidth(0) >= 160
+			exec 'vert split ' . name
+		else
+			exec 'split ' . name
+		endif
+	elseif mods == ''
+		exec 'split ' . name
+	elseif mods == 'auto'
+		if winwidth(0) >= 160
+			exec 'vert split ' . name
+		else
+			exec 'split ' . name
+		endif
+	elseif mods == 'tab'
+		exec 'tabe ' . name
+	else
+		exec mods . ' split ' . name
+	endif
+	if newfile
+		let content = []
+		let n = fnamemodify(name, ':t:r')
+		let u = 'https://github.com/skywind3000/vim-color-patch'
+		if name =~ '\.vim$'
+			let content += [printf('" edit patch for %s', n)]
+			let content += ['" ' .. u]
+		elseif name =~ '\.lua$'
+			let content += [printf('-- edit patch for %s', n)]
+			let content += ['-- ' .. u]
+		endif
+		if len(content) > 0 && line('$') == 1
+			call append(0, content)
+			exec 'set nomodified'
+		endif
+	endif
+	return 0
+endfunc
+
+
+"----------------------------------------------------------------------
+" completion
+"----------------------------------------------------------------------
+function! s:complete(ArgLead, CmdLine, CursorPos)
+	let candidate = []
+	let result = []
+	let items = {}
+	let home = fnamemodify(g:cpatch_edit, ':p')
+	if home !~ '\v[\/\\]$'
+		let home = home .. '/'
+	endif
+	let part = glob(home .. '*', 1)
+	for n in split(part, "\n")
+		if n =~ '\.vim$'
+			let t = fnamemodify(n, ':t:r')
+			let items[t] = 1
+		elseif n =~ '\.lua$'
+			let t = fnamemodify(n, ':t')
+			let items[t] = 1
+		endif
+	endfor
+	let cname = get(g:, 'colors_name', '')
+	if cname != ''
+		let items[cname] = 1
+	endif
+	let items['__init__'] = 1
+	let names = keys(items)
+	call sort(names)
+	let hidden = (a:ArgLead =~ '^_')? 1 : 0
+	if a:ArgLead == ''
+		for name in names
+			if name !~ '^__'
+				let candidate += [name]
+			endif
+		endfor
+	else
+		for name in names
+			if stridx(name, a:ArgLead) == 0
+				let candidate += [name]
+			endif
+		endfor
+	endif
+	return candidate
+endfunc
+
+
+"----------------------------------------------------------------------
+" command definition
+"----------------------------------------------------------------------
+command! -nargs=? -range=0 -complete=customlist,s:complete
+			\ CPatchEdit call s:CPatchEdit('<mods>', <q-args>)
 
 
 
