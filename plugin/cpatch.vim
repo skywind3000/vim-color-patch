@@ -4,7 +4,7 @@
 " cpatch.vim - load colorscheme patch automatically
 "
 " Created by skywind on 2024/01/05
-" Last Modified: 2024/01/07 20:33
+" Last Modified: 2024/01/07 21:03
 "
 " Homepage: https://github.com/skywind3000/vim-color-patch
 "
@@ -166,7 +166,7 @@ function! s:CPatchEdit(mods, name) abort
 	if name == ''
 		let name = '__init__'
 	endif
-	let home = fnamemodify(g:cpatch_edit, ':p')
+	let home = fnamemodify(expand(g:cpatch_edit), ':p')
 	if !isdirectory(home)
 		try
 			call mkdir(home, 'p')
@@ -234,7 +234,7 @@ function! s:complete(ArgLead, CmdLine, CursorPos)
 	let candidate = []
 	let result = []
 	let items = {}
-	let home = fnamemodify(g:cpatch_edit, ':p')
+	let home = fnamemodify(expand(g:cpatch_edit), ':p')
 	if home !~ '\v[\/\\]$'
 		let home = home .. '/'
 	endif
