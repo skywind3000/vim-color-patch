@@ -95,13 +95,6 @@ hi! VertSplit term=reverse ctermfg=239 ctermbg=233 guifg=#64645e guibg=#211F1C
 
 And `VertSplit` style in `gruvbox` will be overrided.
 
-## Command
-
-```VimL
-:CPatchEdit [NAME]
-```
-
-Edit patch file for a colorscheme, if `[NAME]` is omitted, the name of current colorscheme is used.
 
 ## Configuration
 
@@ -124,11 +117,6 @@ Default value: `"~/.vim/cpatch"`.
 
 Can accept a list or a comma separated string.
 
-#### g:cpatch_edit
-
-Path for `:CPatchEdit`, it may equal to `g:cpatch_path`, but `g:cpatch_path` can accept a list for multiple search pathes and this option can only provide one path.
-
-Default value: `"~/.vim/cpatch"` .
 
 #### g:cpatch_disable_lua
 
