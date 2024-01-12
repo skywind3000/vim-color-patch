@@ -4,7 +4,7 @@
 " cpatch.vim - load colorscheme patch automatically
 "
 " Created by skywind on 2024/01/05
-" Last Modified: 2024/01/08 14:47
+" Last Modified: 2024/01/13 00:20
 "
 " Homepage: https://github.com/skywind3000/vim-color-patch
 "
@@ -127,6 +127,11 @@ function! s:load_patch(name, force)
 			endif
 		endfor
 	endfor
+	if has('autocmd')
+		if exists('#User#CPatchPost')
+			exec 'doautocmd User CPatchPost'
+		endif
+	endif
 	return 0
 endfunc
 
