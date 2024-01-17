@@ -38,7 +38,7 @@ Plug 'skywind3000/vim-color-patch'
 Setup the patch search path:
 
 ```VimL
-let g:cpatch_path = '~/.vim/cpatch'
+let g:cpatch_path = '~/.vim/colors/patch'
 ```
 
 And script with the same name will be loaded in this locations after `:color xxx` command.
@@ -48,7 +48,7 @@ And script with the same name will be loaded in this locations after `:color xxx
 
 #### 1) Change the line number style in "desert":
 
-create a new file named `desert.vim` in the `~/.vim/cpatch` folder:
+create a new file named `desert.vim` in the `~/.vim/colors/patch` folder:
 
 ```viml
 highlight! LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE 
@@ -65,7 +65,7 @@ And `LineNr` in `desert` will be overrided.
 
 #### 2) Remove all italic for Windows:
 
-edit `~/.vim/cpatch/__init__.vim` :
+edit `~/.vim/colors/patch/__init__.vim` :
 
 ```VimL
 if has('win32') || has('win64')
@@ -79,7 +79,7 @@ The `__init__.vim` is a public script and it will be sourced for every colorsche
 
 #### 3) Remove background colors for listchars in "monokai":
 
-edit `~/.vim/cpatch/monokai.vim`:
+edit `~/.vim/colors/patch/monokai.vim`:
 
 ```VimL
 call cpatch#remove_background('SpecialKey')
@@ -87,7 +87,7 @@ call cpatch#remove_background('SpecialKey')
 
 #### 4) Change VertSplit style for "gruvbox":
 
-edit `~/.vim/cpatch/gruvbox.vim`:
+edit `~/.vim/colors/patch/gruvbox.vim`:
 
 ```VimL
 hi! VertSplit term=reverse ctermfg=239 ctermbg=233 guifg=#64645e guibg=#211F1C
@@ -113,7 +113,7 @@ This plugin will try to find scripts located in the directory  specified by `g:c
 3) `{NAME}.vim`
 4) `{NAME}.lua`
 
-Default value: `"~/.vim/cpatch"`.
+Default value: `"~/.vim/colors/patch"`.
 
 Can accept a list or a comma separated string.
 
