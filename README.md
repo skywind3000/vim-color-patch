@@ -169,4 +169,8 @@ call cpatch#remove_background('SignColumn')
 
 ## Credit
 
-TODO
+Related project:
+
+- [vim-color-export](https://github.com/skywind3000/vim-color-export): Backport NeoVim colorschemes to Vim !! 
+
+
