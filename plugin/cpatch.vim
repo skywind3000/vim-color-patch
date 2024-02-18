@@ -87,7 +87,7 @@ function! s:load_patch(name, force)
 		let paths = g:cpatch_path
 	endif
 	for name in names
-		let rtpname = g:cpatch_name .. '/' .. name .. '.vim'
+		let rtpname = g:cpatch_name . '/' . name . '.vim'
 		if g:cpatch_name != ''
 			let bang = (g:cpatch_bang == 0)? '' : '!'
 			try
@@ -103,15 +103,15 @@ function! s:load_patch(name, force)
 			let p = expand(p)
 			if isdirectory(p)
 				if p !~ '\v[\/\\]$'
-					let p = p .. '/'
+					let p = p . '/'
 				endif
 				let p = tr(p, '\', '/')
 				for extname in ['.vim', '.lua']
-					let t = p .. name .. extname
+					let t = p . name . extname
 					if extname == '.vim'
-						let cmd = 'source ' .. fnameescape(t)
+						let cmd = 'source ' . fnameescape(t)
 					else
-						let cmd = 'luafile ' .. fnameescape(t)
+						let cmd = 'luafile ' . fnameescape(t)
 						if g:cpatch_disable_lua
 							continue
 						endif
